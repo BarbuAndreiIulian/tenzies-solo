@@ -1,25 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import Die from "./Die";
 
-function App() {
+export default function App(hi) {
+  const [dice, setDice] = React.useState(allNewDice());
+
+  function allNewDice() {
+    const newDice = [];
+    for (let i = 0; i < 10; i++) {
+      newDice.push(Math.ceil(Math.random() * 6));
+    }
+    return newDice;
+  }
+
+  const diceElements = dice.map((die) => <Die value={die} />);
+
+  function rollDice() {
+    setDice(allNewDice);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <main>
+      <div className="dice-container">{diceElements}</div>
+      <button className="roll-dice" onClick={rollDice}>
+        {" "}
+        Roll
+      </button>
+    </main>
   );
 }
-
-export default App;
+/* 
+  1.Set State 
+  2.Function Get Rand Numb
+  3.Map String to D elements 
+  4.Return new mapped string
+*/
